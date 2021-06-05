@@ -15,9 +15,9 @@ namespace MyProject.Controllers
         private static readonly FieldObj Field1 = new FieldObj { Key = 1, Field = "Field1", IsRequired = true, MaxLength = 25, Source = "Source1", IsActive = true, IsDeleted = false };
         private static readonly FieldObj Field2 = new FieldObj { Key = 2, Field = "Field2", IsRequired = true, MaxLength = 25, Source = "Source2", IsActive = true, IsDeleted = false };
         private static readonly Entity Product1 = new Entity { Key = 1, EntityName = "Product1", Fields = new FieldObj[] { Field1, Field2 }, IsDeleted = false, IsActive = true };
-        private static readonly FieldObj Field3 = new FieldObj { Key = 1, Field = "Field3", IsRequired = true, MaxLength = 25, Source = "Source1", IsActive = true, IsDeleted = false };
-        private static readonly FieldObj Field4 = new FieldObj { Key = 2, Field = "Field4", IsRequired = true, MaxLength = 25, Source = "Source2", IsActive = true, IsDeleted = false };
-        private static readonly Entity Product2 = new Entity { Key = 1, EntityName = "Product2", Fields = new FieldObj[] { Field3, Field4 }, IsDeleted = false, IsActive = true };
+        private static readonly FieldObj Field3 = new FieldObj { Key = 3, Field = "Field3", IsRequired = true, MaxLength = 25, Source = "Source1", IsActive = true, IsDeleted = false };
+        private static readonly FieldObj Field4 = new FieldObj { Key = 4, Field = "Field4", IsRequired = true, MaxLength = 25, Source = "Source2", IsActive = true, IsDeleted = false };
+        private static readonly Entity Product2 = new Entity { Key = 2, EntityName = "Product2", Fields = new FieldObj[] { Field3, Field4 }, IsDeleted = false, IsActive = true };
         private static readonly Entity[] Entities = new Entity[] { Product1, Product2 };
         public void Dispose() { }
 

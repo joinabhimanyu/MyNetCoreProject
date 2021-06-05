@@ -12,12 +12,12 @@ namespace MyProject.Controllers
     [Route("api/[controller]")]
     public class CustomFieldsController : ControllerBase, ICustomFieldsApiClient
     {
-        private static readonly FieldObj CField1 = new FieldObj { Key = 1, Field = "CField1", IsRequired = true, MaxLength = 25, Source = "Source1", IsActive = true, IsDeleted = false };
-        private static readonly FieldObj CField2 = new FieldObj { Key = 2, Field = "CField2", IsRequired = true, MaxLength = 25, Source = "Source2", IsActive = true, IsDeleted = false };
+        private static readonly FieldObj CField1 = new FieldObj { Key = 5, Field = "CField1", IsRequired = true, MaxLength = 25, Source = "Source1", IsActive = true, IsDeleted = false };
+        private static readonly FieldObj CField2 = new FieldObj { Key = 6, Field = "CField2", IsRequired = true, MaxLength = 25, Source = "Source2", IsActive = true, IsDeleted = false };
         private static readonly Entity Product1 = new Entity { Key = 1, EntityName = "Product1", Fields = new FieldObj[] { CField1, CField2 }, IsDeleted = false, IsActive = true };
-        private static readonly FieldObj CField3 = new FieldObj { Key = 1, Field = "CField3", IsRequired = true, MaxLength = 25, Source = "Source1", IsActive = true, IsDeleted = false };
-        private static readonly FieldObj CField4 = new FieldObj { Key = 2, Field = "CField4", IsRequired = true, MaxLength = 25, Source = "Source2", IsActive = true, IsDeleted = false };
-        private static readonly Entity Product2 = new Entity { Key = 1, EntityName = "Product2", Fields = new FieldObj[] { CField3, CField4 }, IsDeleted = false, IsActive = true };
+        private static readonly FieldObj CField3 = new FieldObj { Key = 7, Field = "CField3", IsRequired = true, MaxLength = 25, Source = "Source1", IsActive = true, IsDeleted = false };
+        private static readonly FieldObj CField4 = new FieldObj { Key = 8, Field = "CField4", IsRequired = true, MaxLength = 25, Source = "Source2", IsActive = true, IsDeleted = false };
+        private static readonly Entity Product2 = new Entity { Key = 2, EntityName = "Product2", Fields = new FieldObj[] { CField3, CField4 }, IsDeleted = false, IsActive = true };
         private static readonly Entity[] Entities = new Entity[] { Product1, Product2 };
         public void Dispose() { }
 

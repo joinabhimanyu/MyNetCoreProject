@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MyProject.Models;
 using MyProject.Repositories;
+using WebApiClient.Attributes;
 
 namespace MyProject.Controllers
 {
@@ -34,9 +35,9 @@ namespace MyProject.Controllers
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
-        [HttpGet]
+        [Microsoft.AspNetCore.Mvc.HttpGet]
         [Route("{entity}")]
-        public async Task<IEnumerable<Entity>> Get(string entity)
+        public async Task<IEnumerable<Entity>> UpdateEntity(string entity)
         {
 
             var url1 = string.Format("/api/customfields/{0}", entity);
@@ -91,7 +92,7 @@ namespace MyProject.Controllers
                                 efields[i].Key = i + 1;
                             }
                             eresult.Fields = efields;
-                            eresult.Key=entityExists.Key;
+                            eresult.Key = entityExists.Key;
                             _repo.Update(eresult);
                         }
                         else
@@ -110,6 +111,82 @@ namespace MyProject.Controllers
             else
             {
                 throw new HttpRequestException(response1.ReasonPhrase);
+            }
+
+            return null;
+        }
+
+        [Microsoft.AspNetCore.Mvc.HttpPost]
+        public async Task<IEnumerable<Entity>> UpdateEntities([JsonContent] List<string> entities)
+        {
+            if (entities != null && entities.Count > 0)
+            {
+                foreach (var entity in entities)
+                {
+                    var url1 = string.Format("/api/customfields/{0}", entity);
+                    var url2 = string.Format("/api/defaultfields/{0}", entity);
+                    var result1 = new Entity();
+                    var result2 = new Entity();
+                    var response1 = await client.GetAsync(url1);
+                    if (response1.IsSuccessStatusCode)
+                    {
+                        var stringResponse1 = await response1.Content.ReadAsStringAsync();
+
+                        result1 = JsonSerializer.Deserialize<Entity>(stringResponse1,
+                            new JsonSerializerOptions() { PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
+                        var response2 = await client.GetAsync(url2);
+                        if (response2.IsSuccessStatusCode)
+                        {
+                            var stringResponse2 = await response2.Content.ReadAsStringAsync();
+
+                            result2 = JsonSerializer.Deserialize<Entity>(stringResponse2,
+                                new JsonSerializerOptions() { PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
+                            Entity eresult = null;
+                            if (result1 != null && result2 != null)
+                            {
+                                eresult = new Entity { Key = result1.Key, EntityName = result1.EntityName, IsActive = result1.IsActive, IsDeleted = result1.IsDeleted };
+                                List<FieldObj> fields = result1.Fields.Concat(result2.Fields).ToList();
+                                eresult.Fields = fields;
+                                var entityExists = _repo.Find(eresult.EntityName);
+                                if (entityExists != null)
+                                {
+                                    var efields = entityExists.Fields.ToList();
+                                    foreach (var item in fields)
+                                    {
+                                        if (efields.Where(x => x.Field == item.Field).ToList().FirstOrDefault() != null)
+                                        {
+                                            efields.Where(x => x.Field == item.Field).ToList().FirstOrDefault().IsRequired = item.IsRequired;
+                                            efields.Where(x => x.Field == item.Field).ToList().FirstOrDefault().MaxLength = item.MaxLength;
+                                            efields.Where(x => x.Field == item.Field).ToList().FirstOrDefault().Source = item.Source;
+                                            efields.Where(x => x.Field == item.Field).ToList().FirstOrDefault().IsActive = item.IsActive;
+                                            efields.Where(x => x.Field == item.Field).ToList().FirstOrDefault().IsDeleted = item.IsDeleted;
+                                        }
+                                        else
+                                        {
+                                            efields.Append(item);
+                                        }
+                                    }
+                                    eresult.Fields = efields;
+                                    eresult.Key = entityExists.Key;
+                                    _repo.Update(eresult);
+                                }
+                                else
+                                {
+                                    _repo.Add(eresult);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            throw new HttpRequestException(response2.ReasonPhrase);
+                        }
+                    }
+                    else
+                    {
+                        throw new HttpRequestException(response1.ReasonPhrase);
+                    }
+                }
+                return _repo.GetAll(10);
             }
 
             return null;
