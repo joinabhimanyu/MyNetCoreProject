@@ -6155,24 +6155,31 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\achak\\.nuget\\packages\\": {}
+    "C:\\Users\\achak\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\achak\\OneDrive\\Documents\\projects\\MyProject\\MyProject.csproj",
+      "projectUniqueName": "C:\\Users\\achak\\OneDrive\\Documents\\projects\\MyProject\\MyProject.csproj",
       "projectName": "MyProject",
-      "projectPath": "c:\\Users\\achak\\OneDrive\\Documents\\projects\\MyProject\\MyProject.csproj",
+      "projectPath": "C:\\Users\\achak\\OneDrive\\Documents\\projects\\MyProject\\MyProject.csproj",
       "packagesPath": "C:\\Users\\achak\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\achak\\OneDrive\\Documents\\projects\\MyProject\\obj\\",
+      "outputPath": "C:\\Users\\achak\\OneDrive\\Documents\\projects\\MyProject\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+      ],
       "configFilePaths": [
-        "C:\\Users\\achak\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\achak\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net5.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -6238,7 +6245,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.300\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.301\\RuntimeIdentifierGraph.json"
       }
     }
   }
